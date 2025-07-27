@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
-import {Link } from "react-router-dom"
+import { Link } from "react-router-dom"
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
   const [listofRestaurants, setListofRestaurants] = useState([]);
   const [originalList, setOriginalList] = useState([]);
-  const [searchText,setSearchText]=useState("");
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -40,35 +41,54 @@ const Body = () => {
     setListofRestaurants(originalList);
   };
 
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) return (<h1>Looks like you are offline,Please check your internet connection!</h1>
+  );
+
   if (!Array.isArray(listofRestaurants) || listofRestaurants.length === 0) {
     return <Shimmer />;
   }
 
+
   return (
     <div className="body">
-      <div className="filter">
-      <div className="search">
-      <input type="text" className="search-box" value={searchText} onChange={(e) => {
-        setSearchText(e.target.value);
-      }} />
-      <button onClick={() => {
-        console.log(searchText);
-        const filteredRestaurant = listofRestaurants.filter(
-          (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
-        );
-        setListofRestaurants(filteredRestaurant);
-      }}>Search</button></div>
-        <button className="filter-btn" onClick={handleTopRated}>
+      <div className="flex items-center gap-2 m-4">
+        <input
+          type="text"
+          className="border border-black rounded-lg px-2 py-1"
+          value={searchText}
+          placeholder="Search restaurant"
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+        <button
+          className="px-3 py-1 bg-blue-300 rounded-lg"
+          onClick={() => {
+            const filteredRestaurant = listofRestaurants.filter((res) =>
+              res.info.name.toLowerCase().includes(searchText.toLowerCase())
+            );
+            setListofRestaurants(filteredRestaurant);
+          }}
+        >
+          Search
+        </button>
+        <button
+          className="px-3 py-1 bg-green-300 rounded-lg"
+          onClick={handleTopRated}
+        >
           Top Rated Restaurant
         </button>
-        <button className="filter-btn" onClick={handleReset}>
+        <button
+          className="px-3 py-1 bg-red-300 rounded-lg"
+          onClick={handleReset}
+        >
           Reset
         </button>
       </div>
-      <div className="res-container">
+
+      <div className="flex flex-wrap ">
         {listofRestaurants.map((restaurant) => (
-        <Link key={restaurant.info.id} to={"/restaurants/"+ restaurant.info.id}> <RestaurantCard  resData={restaurant} />
-      </Link>   ))}
+          <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}> <RestaurantCard resData={restaurant} />
+          </Link>))}
       </div>
     </div>
   );

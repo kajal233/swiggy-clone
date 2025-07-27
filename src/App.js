@@ -1,12 +1,15 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { createBrowserRouter, Outlet } from "react-router-dom";
-
 import Header from "./components/Header";
 import Body from "./components/Body";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
+
+
+const Grocery = lazy(() => import("./components/Grocery"));
+
 // Shared layout component
 const App = () => {
   return (
@@ -22,8 +25,12 @@ export const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement:<Error />,
+    errorElement: <Error />,
     children: [
+      {
+        path: "/grocery",
+        element: <Suspense fallback={<h1>loading...</h1>}><Grocery /></Suspense>,
+      },
       {
         path: "/",
         element: <Body />
@@ -34,11 +41,11 @@ export const appRouter = createBrowserRouter([
       },
       {
         path: "contact",
-        element: <Contact/>
+        element: <Contact />
       },
       {
-        path:"/restaurants/:resId",
-        element:<RestaurantMenu/>
+        path: "/restaurants/:resId",
+        element: <RestaurantMenu />
       }
     ]
   }

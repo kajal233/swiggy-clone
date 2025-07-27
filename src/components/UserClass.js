@@ -5,8 +5,9 @@ class UserClass extends React.Component {
         super(props);
         this.state = {
             userInfo:{
-            name:"Krati",
-            location:"Default",
+            name:"Kajal",
+            location:"Gurugram",
+            contact:"8976543210"
           }  };
     }
  async componentDidMount(){
@@ -33,7 +34,7 @@ class UserClass extends React.Component {
         const { name, location, contact } = this.state.userInfo;
         
         return (
-            <div className="user-card">
+            <div className="m-4 p-4">
                 <h2>Name:{name}</h2>
                 <h3>Location:{location}</h3>
                 <h4>Contact:{contact}</h4>
