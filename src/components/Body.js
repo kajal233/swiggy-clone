@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom"
 import useOnlineStatus from "../utils/useOnlineStatus";
+
 const Body = () => {
   const [listofRestaurants, setListofRestaurants] = useState([]);
   const [originalList, setOriginalList] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  // const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   useEffect(() => {
     fetchData();
@@ -17,7 +20,7 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
-    console.log(json);
+   
 
     const restaurantsCard = json.data?.cards?.find(
       (card) => card?.card?.card?.gridElements?.infoWithStyle?.restaurants
@@ -48,7 +51,6 @@ const Body = () => {
   if (!Array.isArray(listofRestaurants) || listofRestaurants.length === 0) {
     return <Shimmer />;
   }
-
 
   return (
     <div className="body">
@@ -83,11 +85,18 @@ const Body = () => {
         >
           Reset
         </button>
+        <dropdown />
       </div>
 
       <div className="flex flex-wrap ">
         {listofRestaurants.map((restaurant) => (
-          <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}> <RestaurantCard resData={restaurant} />
+          <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
+
+            {/* if the restaurant is promoted then add a promoted label to it */}
+            {/* {restaurant.data.promoted ? (<RestaurantCardPromoted resData={restaurant} />) : (
+              <RestaurantCard resData={restaurant} />
+            )} */}
+            <RestaurantCard resData={restaurant} />
           </Link>))}
       </div>
     </div>
