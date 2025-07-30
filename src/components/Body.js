@@ -85,7 +85,6 @@ const Body = () => {
         >
           Reset
         </button>
-        <dropdown />
       </div>
 
       <div className="flex flex-wrap ">

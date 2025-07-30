@@ -407,6 +407,10 @@
     margin: calc(var(--spacing) * 6);
   }
 
+  .m-auto {
+    margin: auto;
+  }
+
   .mx-10 {
     margin-inline: calc(var(--spacing) * 10);
   }
