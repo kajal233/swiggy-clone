@@ -8,18 +8,19 @@
     "@tailwindcss/postcss": "^4.1.11",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.6.0",
+    "react-router": "^6.30.1",
+    "react-router-dom": "^6.30.1",
     "tailwindcss": "^4.1.11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "parcel",
-    "build": "parcel build"
+    "build": "parcel build",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
@@ -40,16 +41,19 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
     "@parcel/packager-raw-url": "^2.13.3",
     "@parcel/transformer-webmanifest": "^2.13.3",
+    "@testing-library/react": "^16.3.0",
     "assert": "^2.1.0",
-    "babel-jest": "^27.4.2",
+    "babel-jest": "^27.5.1",
     "babel-preset-react-app": "^10.0.1",
     "console-browserify": "^1.2.0",
     "eslint": "^8.3.0",
     "eslint-config-react-app": "^7.0.1",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^27.4.3",
+    "jest": "^27.5.1",
     "jest-watch-typeahead": "^1.0.0",
     "os-browserify": "^0.3.0",
     "parcel": "^2.13.3",
